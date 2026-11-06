@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>DOM Tag Demo</title><style>
+body{font-family:monospace;background:#0d1117;color:#c9d1d9;display:flex;flex-direction:column;align-items:center;padding-top:40px}
+button{font-family:monospace;font-size:16px;padding:10px 24px;background:#00c8ff;color:#04121a;border:none;border-radius:6px;cursor:pointer}
+button:hover{background:#7adfff}
+#count{color:#ffd23f;margin:14px 0}
+#tagBox{display:flex;flex-wrap:wrap;gap:10px;max-width:520px;justify-content:center;min-height:40px}
+.tag{background:#161b22;border:1px solid #ffd23f;color:#ffd23f;padding:8px 14px;border-radius:6px;cursor:pointer;box-shadow:0 0 12px rgba(255,210,63,.25)}
+.tag:hover{border-color:#ff5f57;color:#ff5f57;box-shadow:0 0 12px rgba(255,95,87,.35)}
+#hint{color:#7b8494;margin-top:18px;font-size:13px}
+</style></head><body>
+<h2>DOM Tag Demo</h2>
+<button id="addBtn">Add a &lt;/&gt; tag</button>
+<div id="count">0 tags on the page</div>
+<div id="tagBox"></div>
+<div id="hint">click a tag to remove it &middot; that's Create, Read, Update, Delete on the page itself</div>
+<script>
+const button = document.getElementById("addBtn");
+const box = document.getElementById("tagBox");
+const count = document.getElementById("count");
+let n = 0;
+function updateCount(){ count.textContent = box.children.length + " tags on the page"; }
+if (button && box) {
+  button.addEventListener("click", () => {
+    n++;
+    const tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = "</> " + n;
+    tag.title = "click to remove";
+    tag.addEventListener("click", () => { tag.remove(); updateCount(); });
+    box.appendChild(tag);
+    updateCount();
+  });
+}
+</script></body></html>
